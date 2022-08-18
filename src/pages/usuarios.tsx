@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, FormEvent } from "react";
 import { Container, Row, Col, Stack, Form, Button } from "react-bootstrap";
 
 //componenst
@@ -8,10 +8,28 @@ import TableUsers from "../components/TableUser";
 export default function Usuarios() {
   const [State, setState] = useState<number>(0);
   const [Change, setChange] = useState<Boolean>(false);
+  const [Picture, setPicture] = useState<string | null>();
+  const [ImageData, setImageData] = useState<any>(null);
+
   const handleCheck = (val: number) => {
     setState(val);
     setChange(true);
   };
+
+  //
+  const onChange = (e: any) => {
+    const file = e.target.files[0];
+    if (file) {
+      console.log(file);
+      setPicture(e.target.files[0]);
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        setImageData(reader.result);
+      });
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+
   return (
     <>
       <h2>Usuarios</h2>
