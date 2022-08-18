@@ -29,6 +29,9 @@ const FormUsers = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     console.log("submited");
+    handleSubmit(async (data) => {
+      formData.append("image_usuario");
+    })(e);
   };
   return (
     <>
@@ -75,7 +78,7 @@ const FormUsers = () => {
         </Form.Group>
         <Form.Group controlId="formFile" className="mb-3">
           <Form.Label>Imagen perfil</Form.Label>
-          <Form.Control type="file" />
+          <Form.Control type="file" accept="image/png,image/jpeg" />
         </Form.Group>
         <Button variant="primary" type="submit">
           Submit
