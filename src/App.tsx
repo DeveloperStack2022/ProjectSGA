@@ -4,13 +4,13 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./routes/private";
 //CONTEXT
 import { AuthProvider } from "./context";
-// PAGES 
+// PAGES
 import SignIn from "./pages/Sigin";
-import UsuariosPage from './pages/usuarios'
-import ParaleloPage from './pages/paralelo'
-import NotasPage from './pages/notas'
-import MateriaPage from './pages/materia'
-
+import UsuariosPage from "./pages/usuarios";
+import ParaleloPage from "./pages/paralelo";
+import NotasPage from "./pages/notas";
+import MateriaPage from "./pages/materia";
+import CicloAcademico from "./pages/cicloacademico";
 
 function App() {
   return (
@@ -19,13 +19,12 @@ function App() {
         <Routes>
           <Route index element={<Elements />} />
           <Route element={<SignIn />} path="signIn" />
-          <Route
-            path="Admin"
-            element={<ProtectedRoute />}>
-              <Route element={<UsuariosPage />} path="usuarios" />
-              <Route element={<ParaleloPage />} path="paralelos" />
-              <Route element={<NotasPage />} path="notas" />
-              <Route element={<MateriaPage />} path="materia" />
+          <Route path="Admin" element={<ProtectedRoute />}>
+            <Route element={<UsuariosPage />} path="usuarios" />
+            <Route element={<ParaleloPage />} path="paralelos" />
+            <Route element={<NotasPage />} path="notas" />
+            <Route element={<MateriaPage />} path="materia" />
+            <Route element={<CicloAcademico />} path="cicloAcademico" />
           </Route>
         </Routes>
       </AuthProvider>

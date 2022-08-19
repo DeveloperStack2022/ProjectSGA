@@ -18,6 +18,10 @@ const LayoutComponent = ({ children }: { children: JSX.Element }) => {
       url: "notas",
       text: "Notas",
     },
+    {
+      url: "cicloAcademico",
+      text: "Ciclo Academico",
+    },
   ];
   return (
     <>
