@@ -1,8 +1,9 @@
 import { Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { CreateUser } from "../../api/users";
 
 type Inputs = {
   nombre: string;
@@ -11,7 +12,12 @@ type Inputs = {
   password: string;
   numCedula: number;
 };
-const FormUsers = () => {
+interface Props {
+  rol: number;
+}
+const FormUsers = ({ rol }: Props) => {
+  const [Picture, setPicture] = useState<string | any>();
+
   const schema = yup.object().shape({
     numCedula: yup.number().required("Field required"),
     nombre: yup.string().required("Field required"),
@@ -25,17 +31,45 @@ const FormUsers = () => {
     formState: { errors },
   } = useForm<Inputs>({ mode: "onTouched", resolver: yupResolver(schema) });
 
+  const onChange = (e: any) => {
+    const file = e.target.files[0];
+    if (file) {
+      // setPicture(e.target.files![0]);
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        setPicture(reader.result);
+      });
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    console.log("submited");
+
     handleSubmit(async (data) => {
-      formData.append("image_usuario");
+      console.log(data);
+      let rolResult = rol == 0 ? "estudiante" : "docente";
+      let datos = {
+        ...data,
+        image_usuario: Picture,
+        rol: rolResult,
+      };
+      formData.append("image_usuario", Picture);
+      let URI = "http://localhost:5000/api";
+      let response = await fetch(`${URI}/createUser`, {
+        method: "POST",
+        body: JSON.stringify(datos),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      await response.json();
     })(e);
   };
   return (
     <>
-      <Form>
+      <Form onSubmit={onSubmit}>
         <Form.Group>
           <Form.Label>Num Cl</Form.Label>
           <Form.Control
@@ -68,7 +102,7 @@ const FormUsers = () => {
             placeholder="Enter number"
           />
         </Form.Group>
-        <Form.Group>
+        <Form.Group className="mb-3">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
@@ -76,10 +110,14 @@ const FormUsers = () => {
             placeholder="****"
           />
         </Form.Group>
-        <Form.Group controlId="formFile" className="mb-3">
+        {/* <Form.Group controlId="formFile" className="mb-3">
           <Form.Label>Imagen perfil</Form.Label>
-          <Form.Control type="file" accept="image/png,image/jpeg" />
-        </Form.Group>
+          <Form.Control
+            type="file"
+            accept="image/png,image/jpeg"
+            onChange={onChange}
+          />
+        </Form.Group> */}
         <Button variant="primary" type="submit">
           Submit
         </Button>
