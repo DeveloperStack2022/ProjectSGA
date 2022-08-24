@@ -3,6 +3,10 @@ export const getUsers = async () => {
     let response = await fetch(`${URI}/getUsers`);
     return await response.json()
 }
+export const getMaterias = async () => {
+    let response = await fetch(`${URI}/getMaterias`);
+    return await response.json()
+}
 
 export const CreateUser = async (formData: any) => {
     let response = await fetch(`${URI}/createUser`, {

@@ -1,5 +1,6 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 import UsersSlice from '../features/users'
+import Materias from '../features/materia'
 // import SttepSlice from '../features/stteps'
 // import equipoSlice from '../features/equipo'
 // import PartesEquipo from '../features/partes'
@@ -8,6 +9,7 @@ export const store = configureStore({
     reducer: {
         // cliente:
         users: UsersSlice,
+        materias: Materias
         // equipo: equipoSlice,
         // partesEquipo: PartesEquipo
     },
