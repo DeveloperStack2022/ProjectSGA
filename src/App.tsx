@@ -11,6 +11,7 @@ import ParaleloPage from "./pages/paralelo";
 import NotasPage from "./pages/notas";
 import MateriaPage from "./pages/materia";
 import CicloAcademico from "./pages/cicloacademico";
+import Games from "./pages/Games";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route index element={<Elements />} />
+          <Route path="/games" element={<Games />} />
           <Route element={<SignIn />} path="signIn" />
           <Route path="Admin" element={<ProtectedRoute />}>
             <Route element={<UsuariosPage />} path="usuarios" />

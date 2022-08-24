@@ -7,7 +7,7 @@ const CreateMateria = () => {
     setActive(valor);
   };
 
-  let dias = [
+  let Estudiantes = [
     {
       Nombre: "Juan",
     },
@@ -24,25 +24,25 @@ const CreateMateria = () => {
       Nombre: "Cristian",
     },
     {
-      Nombre: "Juan",
+      Nombre: "Leo",
     },
     {
-      Nombre: "Andrea",
+      Nombre: "Andres",
     },
     {
-      Nombre: "Pedro",
+      Nombre: "Mario",
     },
     {
-      Nombre: "Noel",
+      Nombre: "Ben",
     },
     {
-      Nombre: "Cristian",
+      Nombre: "Christian",
     },
     {
-      Nombre: "Noel",
+      Nombre: "Franco",
     },
     {
-      Nombre: "Cristian",
+      Nombre: "Alex",
     },
   ];
   return (
@@ -84,7 +84,7 @@ const CreateMateria = () => {
       <h6>Asignar a estudiantes </h6>
       <hr />
       <Row className="mb-3">
-        {dias.map((item) => (
+        {Estudiantes.map((item) => (
           <Col className="col-sm-4">
             <Form.Group controlId={`check-item-${item.Nombre}`}>
               <Form.Check type="checkbox" label={item.Nombre} />
