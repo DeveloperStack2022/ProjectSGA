@@ -1,15 +1,19 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 import UsersSlice from '../features/users'
 import Materias from '../features/materia'
-// import SttepSlice from '../features/stteps'
-// import equipoSlice from '../features/equipo'
-// import PartesEquipo from '../features/partes'
-
+import CicloAcademico  from '../features/ciclo_academico'
+import UserStudent from '../features/usuarios'
+import UsersDocentes from '../features/Docentes'
+import Paralelos from '../features/Paralelo'
 export const store = configureStore({
     reducer: {
         // cliente:
         users: UsersSlice,
-        materias: Materias
+        materias: Materias,
+        cicloAcademico:CicloAcademico,
+        userStudent:UserStudent,
+        usersDocentes: UsersDocentes,
+        paralelos: Paralelos,
         // equipo: equipoSlice,
         // partesEquipo: PartesEquipo
     },

@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState, AppThunk } from '../redux'
-import { MateriaState, MateriaEntity } from '../types/types'
-import { getMaterias } from '../api/users'
+import { MateriaState, MateriaEntity,CicloAcademico,CliclosAcademicosEntity } from '../types/types'
+import { getCiclosAcademicos } from '../api/users'
 
 
 
-const initalStae: MateriaState = {
-    error: null,
+const initalStae: CicloAcademico = {
     loading: false,
-    materias: []
+    error:null,
+    ciclosAcademicos:[]
 }
 
 export const usersSlice = createSlice({
@@ -24,38 +24,39 @@ export const usersSlice = createSlice({
             // state.password = action.payload.password;
             // state.username = action.payload.username
         },
-        fetchMateriasSuccess(state, action: PayloadAction<MateriaEntity[]>) {
+        fetchCiclosAcademicosSuccess(state, action: PayloadAction<CliclosAcademicosEntity[]>) {
             return {
                 ...state,
                 loading: false,
                 error: null,
-                materias: action.payload,
+                ciclosAcademicos: action.payload,
             };
         },
-        fetchMateriasError(state, action: PayloadAction<Error>) {
+        fetchCiclosAcademicosError(state, action: PayloadAction<Error>) {
             return {
                 ...state,
                 loading: false,
                 error: action.payload,
-                materias: [],
+                ciclosAcademicos: [],
             };
         },
     }
 })
 
-export const GetMaterias = (): AppThunk => {
+export const GetCiclosAcademicos = (): AppThunk => {
     return async (dispatch) => {
 
         try {
-            const response = await getMaterias();
-            dispatch(fetchMateriasSuccess(response))
+            const response = await getCiclosAcademicos();
+            console.log(response)
+            dispatch(fetchCiclosAcademicosSuccess(response))
         } catch (error) {
-            dispatch(fetchMateriasError(error as Error))
+            dispatch(fetchCiclosAcademicosError(error as Error))
         }
     }
 }
 
 
-export const { addMateria, fetchMateriasSuccess, fetchMateriasError } = usersSlice.actions;
+export const { addMateria, fetchCiclosAcademicosSuccess, fetchCiclosAcademicosError } = usersSlice.actions;
 export const selectSttep = (state: RootState) => state.users
 export default usersSlice.reducer

@@ -1,12 +1,17 @@
 import { Table, Stack, Button } from "react-bootstrap";
 import { HiOutlineTrash, HiOutlinePencil } from "react-icons/hi";
-import { MateriaEntity, MateriaResponseServer } from "../../types/types";
+import { CliclosAcademicosEntity } from "../../types/types";
 import { Badge } from "react-bootstrap";
 interface Props {
-  materias: MateriaResponseServer[];
+  ciclosAcademicos: CliclosAcademicosEntity[];
   loading: Boolean;
+  ChangeState: (id: string) => void;
 }
-const TableMateriaComponent = ({ materias, loading }: Props) => {
+const TableCicloAcademicoComponent = ({
+  ciclosAcademicos,
+  loading,
+  ChangeState,
+}: Props) => {
   return (
     <>
       <Table hover>
@@ -14,17 +19,15 @@ const TableMateriaComponent = ({ materias, loading }: Props) => {
           <tr>
             <th>#</th>
             <th>Descripcion</th>
-            <th>Hora Inicio</th>
-            <th>Hora Final</th>
-            <th>Dias</th>
-            <th>Aula</th>
+            <th>Orden</th>
+            <th>Estado</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           {/* !!false !false => true !!false =>  false !!true => true  */}
           {!loading ? (
-            materias.map((item, key) => (
+            ciclosAcademicos.map((item, key) => (
               <tr>
                 <td>{key}</td>
                 <td>
@@ -36,24 +39,28 @@ const TableMateriaComponent = ({ materias, loading }: Props) => {
                     {item.descripcion}
                   </div>
                 </td>
-                <td>{item.hora_inicio}</td>
-                <td>{item.hora_final}</td>
+
+                <td>{item.orden}</td>
+
                 <td>
-                  {item.dias.map((dias) => (
-                    <Stack gap={3}>
-                      <Badge className="d-block mt-1" pill bg="primary">
-                        {dias}
-                      </Badge>
-                    </Stack>
-                  ))}
+                  <Badge
+                    className="d-block mt-1"
+                    pill
+                    bg={item?.estado ? "primary" : "secondary"}
+                  >
+                    {item?.estado ? "Active" : "Desactive"}
+                  </Badge>
                 </td>
-                <td>{item.aula}</td>
                 <td>
                   <Stack direction="horizontal" gap={2} className="">
                     <Button className="mr-2" variant="danger" size="sm">
                       <HiOutlineTrash size="18px" />
                     </Button>
-                    <Button variant="success" size="sm">
+                    <Button
+                      variant="success"
+                      size="sm"
+                      onClick={() => ChangeState(item._id.$oid)}
+                    >
                       <HiOutlinePencil />
                     </Button>
                   </Stack>
@@ -69,4 +76,4 @@ const TableMateriaComponent = ({ materias, loading }: Props) => {
   );
 };
 
-export default TableMateriaComponent;
+export default TableCicloAcademicoComponent;

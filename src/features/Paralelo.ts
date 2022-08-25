@@ -1,18 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState, AppThunk } from '../redux'
-import { MateriaState, MateriaEntity } from '../types/types'
-import { getMaterias } from '../api/users'
+import {  ParalelosEntity,ParaleloResponseServer } from '../types/types'
+import { getParalelos } from '../api/users'
 
 
 
-const initalStae: MateriaState = {
+const initalStae: ParaleloResponseServer = {
     error: null,
     loading: false,
-    materias: []
+    paralelos: []
 }
 
-export const usersSlice = createSlice({
-    name: "Materia",
+export const paralelosSlice = createSlice({
+    name: "Paralelos",
     initialState: initalStae,
     reducers: {
         addMateria: (state, action: PayloadAction<string>) => {
@@ -24,38 +24,38 @@ export const usersSlice = createSlice({
             // state.password = action.payload.password;
             // state.username = action.payload.username
         },
-        fetchMateriasSuccess(state, action: PayloadAction<MateriaEntity[]>) {
+        fetchParalelosSuccess(state, action: PayloadAction<ParalelosEntity[]>) {
             return {
                 ...state,
                 loading: false,
                 error: null,
-                materias: action.payload,
+                paralelos: action.payload,
             };
         },
-        fetchMateriasError(state, action: PayloadAction<Error>) {
+        fetchParalelosError(state, action: PayloadAction<Error>) {
             return {
                 ...state,
                 loading: false,
                 error: action.payload,
-                materias: [],
+                paralelos: [],
             };
         },
     }
 })
 
-export const GetMaterias = (): AppThunk => {
+export const GetParalelos = (): AppThunk => {
     return async (dispatch) => {
-
+        
         try {
-            const response = await getMaterias();
-            dispatch(fetchMateriasSuccess(response))
+            const response = await getParalelos();
+            dispatch(fetchParalelosSuccess(response))
         } catch (error) {
-            dispatch(fetchMateriasError(error as Error))
+            dispatch(fetchParalelosError(error as Error))
         }
     }
 }
 
 
-export const { addMateria, fetchMateriasSuccess, fetchMateriasError } = usersSlice.actions;
+export const { addMateria, fetchParalelosSuccess, fetchParalelosError } = paralelosSlice.actions;
 export const selectSttep = (state: RootState) => state.users
-export default usersSlice.reducer
+export default paralelosSlice.reducer

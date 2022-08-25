@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./routes/private";
+import { ProtectedRouteDocente } from "./routes/docente";
 //CONTEXT
 import { AuthProvider } from "./context";
 // PAGES
@@ -27,6 +28,9 @@ function App() {
             <Route element={<NotasPage />} path="notas" />
             <Route element={<MateriaPage />} path="materia" />
             <Route element={<CicloAcademico />} path="cicloAcademico" />
+          </Route>
+          <Route path="Docente" element={<ProtectedRouteDocente />}>
+            <Route element={<UsuariosPage />} path="notas" />
           </Route>
         </Routes>
       </AuthProvider>

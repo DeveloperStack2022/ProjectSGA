@@ -1,4 +1,11 @@
-import React, { useRef, TouchEvent, MouseEvent, DragEvent } from "react";
+import React, {
+  useRef,
+  TouchEvent,
+  MouseEvent,
+  DragEvent,
+  useState,
+} from "react";
+import { Container } from "react-bootstrap";
 
 const useTouch = (e: TouchEvent | MouseEvent) => {
   e.persist();
@@ -15,13 +22,34 @@ const useTouch = (e: TouchEvent | MouseEvent) => {
 };
 
 const Games = () => {
+  const [count, setCount] = useState<number>(0);
   let startButton = useRef<HTMLButtonElement>(null);
+  let dragObject = useRef<HTMLDivElement>(null);
+  let dropPoints = useRef<HTMLDivElement>(null);
+
   let initialX;
   let initialY;
   function dragStart(e: DragEvent<HTMLDivElement>) {
     let touch = useTouch(e);
     e.dataTransfer.setData("text", e.currentTarget.id);
   }
+
+  // const create = () => {
+  //   dragObject.current?.innerHTML = "";
+  //   dropPoints.current?.innerHTML = "";
+  //   let arrayData=[{
+  //     url:"http://adsasd.com",
+  //     name:"text"
+  //   }]
+  //   for(let i of arrayData){
+  //     const createDiv = document.createElement("div");
+  //     createDiv.classList.add("draggable-image")
+  //     createDiv.setAttribute("draggable",true)
+  //     createDiv.innerHTML = `<img src="${i.url}.png" id="${i.text}">`;
+  //     dragObject.current?.appendChild(createDiv);
+
+  //   }
+  // };
 
   const drop = (e: DragEvent<HTMLDivElement>) => {
     const draggedElementData = e.dataTransfer.getData("text");
@@ -39,16 +67,26 @@ const Games = () => {
       //insert new img
       e.target.insertAdjacentHTML(
         "afterbegin",
-        `<img src="${draggedElementData}.png">`,
+        `<img src="${draggedElementData}.png">`
       );
-      count += 1;
+      setCount((prev) => prev + 1);
+    }
+    if (count == 3) {
+      result.innerText = `You Won!`;
+      stopGame();
     }
   };
 
   return (
     <>
-      <h2>Games</h2>
-      <button ref={startButton}>Start Game</button>
+      <Container>
+        <h2>Games</h2>
+        <button className="btn btn-primary" ref={startButton}>
+          Start Game
+        </button>
+        <div className={"draggable-objects"} ref={dragObject}></div>
+        <div className="drop-points" ref={dropPoints}></div>
+      </Container>
     </>
   );
 };

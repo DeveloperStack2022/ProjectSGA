@@ -1,21 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState, AppThunk } from '../redux'
-import { MateriaState, MateriaEntity } from '../types/types'
-import { getMaterias } from '../api/users'
+import { UserState, UserEntity } from '../types/types'
+import { getUsersStudents } from '../api/users'
 
 
 
-const initalStae: MateriaState = {
+const initalStae: UserState = {
     error: null,
     loading: false,
-    materias: []
+    users: []
 }
 
 export const usersSlice = createSlice({
-    name: "Materia",
+    name: "Students",
     initialState: initalStae,
     reducers: {
-        addMateria: (state, action: PayloadAction<string>) => {
+        addUser: (state, action: PayloadAction<string>) => {
 
             // state.apellido = action.payload.apellido;
             // state.nombre = action.payload.nombre;
@@ -24,38 +24,39 @@ export const usersSlice = createSlice({
             // state.password = action.payload.password;
             // state.username = action.payload.username
         },
-        fetchMateriasSuccess(state, action: PayloadAction<MateriaEntity[]>) {
+
+        fetchUsersStudentSuccess(state, action: PayloadAction<UserEntity[]>) {
             return {
                 ...state,
                 loading: false,
                 error: null,
-                materias: action.payload,
+                users: action.payload,
             };
         },
-        fetchMateriasError(state, action: PayloadAction<Error>) {
+        fetchUsersStudentError(state, action: PayloadAction<Error>) {
             return {
                 ...state,
                 loading: false,
                 error: action.payload,
-                materias: [],
+                users: [],
             };
         },
     }
 })
 
-export const GetMaterias = (): AppThunk => {
+export const GetUsers = (): AppThunk => {
     return async (dispatch) => {
 
         try {
-            const response = await getMaterias();
-            dispatch(fetchMateriasSuccess(response))
+            const response = await getUsersStudents();
+            dispatch(fetchUsersStudentSuccess(response))
         } catch (error) {
-            dispatch(fetchMateriasError(error as Error))
+            dispatch(fetchUsersStudentError(error as Error))
         }
     }
 }
 
 
-export const { addMateria, fetchMateriasSuccess, fetchMateriasError } = usersSlice.actions;
+export const { addUser, fetchUsersStudentSuccess, fetchUsersStudentError } = usersSlice.actions;
 export const selectSttep = (state: RootState) => state.users
 export default usersSlice.reducer
