@@ -17,7 +17,7 @@ export type UserEntity = {
     apellido: string,
     username: string,
     password: string,
-    imageUrl: string
+    img_url: string
 }
 
 export interface UserState {
@@ -63,6 +63,17 @@ export type MateriaResponseServer = {
     dias:Dias[]
 }
 
+export type NotasEntity = {
+    _id:{
+        $oid:string;
+    }
+    nota_inicial:string;
+    nota_final:string;
+    paralelo:string;
+    id_ciclo:string;
+    estado:boolean
+}
+
 
 export interface MateriaState {
     materias?: MateriaEntity[],
@@ -80,4 +91,10 @@ export interface ParaleloResponseServer {
     error:Error | null;
     loading: false
     paralelos: ParalelosEntity[]
+}
+
+export interface NotasResponseServer {
+    error: Error | null;
+    loading: false;
+    notas?: NotasEntity[]
 }

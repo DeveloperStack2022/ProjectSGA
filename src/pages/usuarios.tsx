@@ -1,19 +1,27 @@
 import React, { useState, FormEvent, useEffect } from "react";
-import { Container, Row, Col, Stack, Form, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Stack,
+  Form,
+  Button,
+  Toast,
+  ToastContainer,
+} from "react-bootstrap";
 
 //componenst
 import FormUsers from "../components/users/FormUsuarios";
 import TableUsers from "../components/users/TableUser";
 //Redux - Store
 import { useAppDispatch, useAppSelector } from "../hooks/useReducer";
-import { GetUsers } from "../features/users";
+import { GetUsers, deleteUser } from "../features/users";
 import { DeleteUser } from "../api/users";
 
 export default function Usuarios() {
   const [State, setState] = useState<number>(0);
   const [Change, setChange] = useState<Boolean>(false);
-  const [Picture, setPicture] = useState<string | null>();
-  const [ImageData, setImageData] = useState<any>(null);
+  const [Show, setShow] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
 
@@ -31,7 +39,8 @@ export default function Usuarios() {
 
   const handleDeleteUser = async (username: string) => {
     let response = await DeleteUser(username);
-    console.log(response);
+    dispatch(deleteUser({ username: response.username }));
+    setShow(true);
   };
 
   return (
@@ -43,12 +52,14 @@ export default function Usuarios() {
             <Stack gap={2} className="col-md-5 mx-auto">
               <Button
                 variant={State == 0 ? "primary" : "outline-primary"}
-                onClick={() => handleCheck(0)}>
+                onClick={() => handleCheck(0)}
+              >
                 Estudiante
               </Button>
               <Button
                 variant={State == 1 ? "primary" : "outline-primary"}
-                onClick={() => handleCheck(1)}>
+                onClick={() => handleCheck(1)}
+              >
                 Docente
               </Button>
               {!Change && (
@@ -68,6 +79,29 @@ export default function Usuarios() {
           </Col>
         </Row>
       </Container>
+      <ToastContainer position="top-start" className="p-3">
+        <Toast
+          onClose={() => setShow(false)}
+          show={Show}
+          className="d-inline-block m-1"
+          bg="success"
+          delay={3000}
+          autohide
+        >
+          <Toast.Header>
+            <img
+              src="holder.js/20x20?text=%20"
+              className="rounded me-2"
+              alt=""
+            />
+            <strong className="me-auto">Sistema gestion Academica</strong>
+            <small>11 mins ago</small>
+          </Toast.Header>
+          <Toast.Body className="text-white">
+            Usuario eliminado correctamente
+          </Toast.Body>
+        </Toast>
+      </ToastContainer>
     </>
   );
 }

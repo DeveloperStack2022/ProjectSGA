@@ -1,6 +1,6 @@
 import { Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, ChangeEvent } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CreateUser } from "../../api/users";
@@ -16,7 +16,7 @@ interface Props {
   rol: number;
 }
 const FormUsers = ({ rol }: Props) => {
-  const [Picture, setPicture] = useState<string | any>();
+  const [Picture, setPicture] = useState<any>();
 
   const schema = yup.object().shape({
     numCedula: yup.number().required("Field required"),
@@ -31,38 +31,29 @@ const FormUsers = ({ rol }: Props) => {
     formState: { errors },
   } = useForm<Inputs>({ mode: "onTouched", resolver: yupResolver(schema) });
 
-  const onChange = (e: any) => {
-    const file = e.target.files[0];
-    if (file) {
-      // setPicture(e.target.files![0]);
-      const reader = new FileReader();
-      reader.addEventListener("load", () => {
-        setPicture(reader.result);
-      });
-      reader.readAsDataURL(e.target.files[0]);
-    }
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.currentTarget?.files[0];
+    console.log(file);
+    setPicture(file);
   };
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-
     handleSubmit(async (data) => {
-      console.log(data);
+      // console.log(data);
       let rolResult = rol == 0 ? "estudiante" : "docente";
-      let datos = {
-        ...data,
-        image_usuario: Picture,
-        rol: rolResult,
-      };
-      formData.append("image_usuario", Picture);
+      // let datos = {
+      // ...data,
+      // image_usuario: Picture,
+      // rol: rolResult,
+      // };
       let URI = "http://localhost:5000/api";
+      formData.append("image_perfil", Picture);
+      formData.append("rol", rolResult);
       let response = await fetch(`${URI}/createUser`, {
         method: "POST",
-        body: JSON.stringify(datos),
-        headers: {
-          "Content-Type": "application/json",
-        },
+        body: formData,
       });
       await response.json();
     })(e);
@@ -110,14 +101,15 @@ const FormUsers = ({ rol }: Props) => {
             placeholder="****"
           />
         </Form.Group>
-        {/* <Form.Group controlId="formFile" className="mb-3">
+        <Form.Group controlId="formFile" className="mb-3">
           <Form.Label>Imagen perfil</Form.Label>
           <Form.Control
             type="file"
-            accept="image/png,image/jpeg"
+            accept="image/png,image/jpg,image/jpeg"
             onChange={onChange}
+            id="file"
           />
-        </Form.Group> */}
+        </Form.Group>
         <Button variant="primary" type="submit">
           Submit
         </Button>

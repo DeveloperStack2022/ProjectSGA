@@ -5,6 +5,7 @@ import CicloAcademico  from '../features/ciclo_academico'
 import UserStudent from '../features/usuarios'
 import UsersDocentes from '../features/Docentes'
 import Paralelos from '../features/Paralelo'
+import NotasAdmin from '../features/notasAdmin'
 export const store = configureStore({
     reducer: {
         // cliente:
@@ -14,6 +15,7 @@ export const store = configureStore({
         userStudent:UserStudent,
         usersDocentes: UsersDocentes,
         paralelos: Paralelos,
+        notasAdmin:NotasAdmin
         // equipo: equipoSlice,
         // partesEquipo: PartesEquipo
     },

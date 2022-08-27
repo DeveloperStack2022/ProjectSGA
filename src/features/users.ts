@@ -24,7 +24,17 @@ export const usersSlice = createSlice({
             // state.password = action.payload.password;
             // state.username = action.payload.username
         },
-
+        deleteUser:(state,action: PayloadAction<UserEntity>) => {
+       
+            let users = state.users?.filter(i => i.username !== action.payload.username )
+           
+            return {
+                ...state,
+                loading:false,
+                error:null,
+                users:users
+            }
+        },
         fetchUsersSuccess(state, action: PayloadAction<UserEntity[]>) {
             return {
                 ...state,
@@ -57,6 +67,6 @@ export const GetUsers = (): AppThunk => {
 }
 
 
-export const { addUser, fetchUsersSuccess, fetchUsersError } = usersSlice.actions;
+export const { addUser, fetchUsersSuccess, fetchUsersError,deleteUser } = usersSlice.actions;
 export const selectSttep = (state: RootState) => state.users
 export default usersSlice.reducer

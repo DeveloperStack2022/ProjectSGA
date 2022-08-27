@@ -86,3 +86,51 @@ export const deleteAssignParalelo = async (id:string) => {
 
     return await response.json();
 }
+
+export const CreateNote = async (id:string | null,fallos:number) => {
+    let data = {
+        id_student:id,
+        fallos
+    }
+    let response = await  fetch(`${URI}/createNotaStudent`,{
+        method:"POST",
+        body: JSON.stringify(data),
+        headers:{
+            "Content-Type":"application/json"
+        }
+    })
+    return await response.json()
+}
+
+export const CreateScore = async (id:string | null,score:number) => {
+    let data = {
+        id_student:id,
+        score
+    }
+    let response = await  fetch(`${URI}/createScore`,{
+        method:"POST",
+        body: JSON.stringify(data),
+        headers:{
+            "Content-Type":"application/json"
+        }
+    })
+    return await response.json()
+}
+
+export const CreateNoteAdmin = async (data:any) => {
+    let response = await  fetch(`${URI}/createNoteAdmin`,{
+        method:"POST",
+        body: JSON.stringify(data),
+        headers:{
+            "Content-Type":"application/json"
+        }
+    })
+    return await response.json()
+}
+
+
+export const GetNotesAdmin  = async ()=> {
+    let response = await fetch(`${URI}/getNotesAdmin`)
+    return await response.json()
+}
+

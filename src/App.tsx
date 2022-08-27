@@ -13,14 +13,15 @@ import NotasPage from "./pages/notas";
 import MateriaPage from "./pages/materia";
 import CicloAcademico from "./pages/cicloacademico";
 import Games from "./pages/Games";
+import Home from "./pages/Home";
 
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          <Route index element={<Elements />} />
-          <Route path="/games" element={<Games />} />
+          <Route index element={<Home />} />
+          <Route path="/evaluacion" element={<Games />} />
           <Route element={<SignIn />} path="signIn" />
           <Route path="Admin" element={<ProtectedRoute />}>
             <Route element={<UsuariosPage />} path="usuarios" />
@@ -37,9 +38,6 @@ function App() {
     </BrowserRouter>
   );
 }
-const HomeProcted = () => {
-  return <h2>Text auth</h2>;
-};
 
 const Elements = () => {
   return <h2>Element</h2>;
