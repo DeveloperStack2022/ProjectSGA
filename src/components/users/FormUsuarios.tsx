@@ -42,7 +42,8 @@ const FormUsers = ({ rol }: Props) => {
     const formData = new FormData(e.currentTarget);
     handleSubmit(async (data) => {
       // console.log(data);
-      let rolResult = rol == 0 ? "estudiante" : "docente";
+      let rolResult =
+        rol == 0 ? "estudiante" : rol == 1 ? "docente" : "administrador";
       // let datos = {
       // ...data,
       // image_usuario: Picture,

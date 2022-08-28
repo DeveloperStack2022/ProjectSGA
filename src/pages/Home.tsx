@@ -27,11 +27,17 @@ function HomeComponent() {
         <Container>
           <Navbar.Brand href="#home">Bienvenidos</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#pricing">Entrenamiento</Nav.Link>
+            <LinkContainer to="/">
+              <Nav.Link href="#home">Home</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/entrenamiento">
+              <Nav.Link href="#pricing">Entrenamiento</Nav.Link>
+            </LinkContainer>
           </Nav>
           <Nav>
-            <Nav.Link>Sign in</Nav.Link>
+            <LinkContainer to="/signin">
+              <Nav.Link>Sign in</Nav.Link>
+            </LinkContainer>
           </Nav>
         </Container>
       </Navbar>
@@ -39,7 +45,7 @@ function HomeComponent() {
         <Row className="mt-5">
           {!error &&
             users?.map((i) => (
-              <Col>
+              <Col md="2">
                 <LinkContainer to={`/evaluacion?user=${i._id}`}>
                   <Card role="button">
                     <Card.Img variant="top" src={i.img_url} />

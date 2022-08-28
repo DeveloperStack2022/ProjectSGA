@@ -62,6 +62,12 @@ export default function Usuarios() {
               >
                 Docente
               </Button>
+              <Button
+                variant={State == 3 ? "primary" : "outline-primary"}
+                onClick={() => handleCheck(3)}
+              >
+                Admin
+              </Button>
               {!Change && (
                 <p className="h6 text-center text-muted">
                   Por defecto esta en Estudiante
