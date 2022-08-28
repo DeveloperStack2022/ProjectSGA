@@ -20,6 +20,8 @@ export const  CreateAssignParalelo = async (datos:DatosParams) => {
 }
 
 export const getUsers = async () => {
+    // http://localhost:5000/getUsers
+   
     let response = await fetch(`${URI}/getUsers`);
     return await response.json()
 }
@@ -53,6 +55,7 @@ export const CreateUser = async (formData: any) => {
     })
     return await response.json();
 }
+
 
 export const DeleteUser = async (username: string) => {
     let data = {
@@ -92,6 +95,8 @@ export const CreateNote = async (id:string | null,fallos:number) => {
         id_student:id,
         fallos
     }
+    // http://localhost:5000/createNotaStudent
+    
     let response = await  fetch(`${URI}/createNotaStudent`,{
         method:"POST",
         body: JSON.stringify(data),

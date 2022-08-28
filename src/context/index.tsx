@@ -2,8 +2,13 @@ import { createContext, useState } from "react";
 import { IContext, IUser, Response } from "./types";
 import { LoginRequest, SessionStorage } from "./util";
 
-import jwtDecode from "jwt-decode";
+import jwtDecode, { JwtPayload } from "jwt-decode";
 export const AuthContext = createContext<IContext>({} as IContext);
+
+type Resultados = {
+  username: string;
+  name_rol: string;
+};
 
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const [user, setUser] = useState<IUser | null>();
@@ -13,9 +18,9 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     password: string
   ): Promise<Response> {
     let response = await LoginRequest(username, password);
-
-    if (response.error) return { error: true, message: response.message };
-    let resultado = jwtDecode(response.token);
+    if (response.error)
+      return { error: true, message: response.message, token: "" };
+    let resultado: Resultados = jwtDecode(response.token);
 
     if (resultado)
       setUser({ username: resultado.username, name_rol: resultado.name_rol });
@@ -29,6 +34,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
       error: false,
       message: "",
       rol: resultado.name_rol,
+      token: "",
     };
   }
   function logout() {

@@ -16,4 +16,5 @@ export interface Response {
     error:boolean | null;
     message: string | null;
     rol?:string;
+    token:string;
 }

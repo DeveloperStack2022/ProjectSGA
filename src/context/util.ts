@@ -24,7 +24,8 @@ export async function LoginRequest(username:string,password:string):Promise<Resp
 }
 
 export function SessionStorage(data:string,token:string) {
-    window.localStorage.setItem("token",token)
+    window.localStorage.setItem("token",token);
+    
     return window.localStorage.setItem('user',data);
 }
 

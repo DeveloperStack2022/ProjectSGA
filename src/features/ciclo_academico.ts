@@ -48,7 +48,7 @@ export const GetCiclosAcademicos = (): AppThunk => {
 
         try {
             const response = await getCiclosAcademicos();
-            console.log(response)
+            // console.log(response)
             dispatch(fetchCiclosAcademicosSuccess(response))
         } catch (error) {
             dispatch(fetchCiclosAcademicosError(error as Error))
