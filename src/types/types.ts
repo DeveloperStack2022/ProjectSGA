@@ -75,6 +75,7 @@ export type NotasEntity = {
 }
 
 
+
 export interface MateriaState {
     materias?: MateriaEntity[],
     error: Error | null
@@ -97,4 +98,10 @@ export interface NotasResponseServer {
     error: Error | null;
     loading: false;
     notas?: NotasEntity[]
+}
+
+export interface Students {
+    error:null,
+    loading:boolean,
+    students?: UserEntity[]
 }

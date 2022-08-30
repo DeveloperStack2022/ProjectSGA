@@ -1,4 +1,5 @@
 import { IUser,Response } from "./types";
+
 export async function LoginRequest(username:string,password:string):Promise<Response> {
     let URI = 'http://localhost:5000/api'
     let data = {username,password};
@@ -14,7 +15,7 @@ export async function LoginRequest(username:string,password:string):Promise<Resp
        
         let datos = await response.json()
         return datos;
-    } catch (error) {
+    } catch (error:any) {
         return {
             token:"",
             error:true,

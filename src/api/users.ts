@@ -139,3 +139,7 @@ export const GetNotesAdmin  = async ()=> {
     return await response.json()
 }
 
+export const getUsersParalelos = async (paralelo:string) => {
+    let response  = await fetch(`${URI}/getUsersParalelos?paralelo=${paralelo.toUpperCase}`)
+    return await response.json()
+}

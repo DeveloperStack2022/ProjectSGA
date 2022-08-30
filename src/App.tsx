@@ -14,6 +14,7 @@ import MateriaPage from "./pages/materia";
 import CicloAcademico from "./pages/cicloacademico";
 import Games from "./pages/Games";
 import Home from "./pages/Home";
+import Students from "./pages/students";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/evaluacion" element={<Games />} />
           <Route element={<SignIn />} path="signIn" />
+          <Route element={<Students />} path="students" />
           <Route path="Admin" element={<ProtectedRoute />}>
             <Route element={<UsuariosPage />} path="usuarios" />
             <Route element={<ParaleloPage />} path="paralelos" />
