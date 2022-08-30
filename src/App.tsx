@@ -15,6 +15,7 @@ import CicloAcademico from "./pages/cicloacademico";
 import Games from "./pages/Games";
 import Home from "./pages/Home";
 import Students from "./pages/students";
+import HomePageDocentes from "./pages/HomePageDocente";
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
             <Route element={<CicloAcademico />} path="cicloAcademico" />
           </Route>
           <Route path="Docente" element={<ProtectedRouteDocente />}>
-            <Route element={<UsuariosPage />} path="notas" />
+            <Route element={<HomePageDocentes />} path="notas" />
           </Route>
         </Routes>
       </AuthProvider>
