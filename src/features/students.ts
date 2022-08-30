@@ -1,20 +1,31 @@
-import {createSlice,PayloadAction} from '@reduxjs/toolkit'
-import {RootState, AppThunk} from '../redux'
-import { getUsersStudents } from '../api/users'
-import { Students,UserEntity } from '../types/types'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { RootState, AppThunk } from '../redux'
+import { Students, UserEntity } from '../types/types'
+import { getUsersParalelos } from '../api/users'
 
 
-const initalState:Students = {
-    error:null,
-    loading:false,
-    students:[]
+
+const initalStae: Students = {
+    error: null,
+    loading: false,
+    students: []
 }
 
 export const studentSlice = createSlice({
-    name:"Students",
-    initialState:initalState,
-    reducers:{
-        fetchStudentsSucces(state,action: PayloadAction<UserEntity[]>){
+    name: "Students",
+    initialState: initalStae,
+    reducers: {
+        addUser: (state, action: PayloadAction<string>) => {
+
+            // state.apellido = action.payload.apellido;
+            // state.nombre = action.payload.nombre;
+            // state.imageUrl = action.payload.imageUrl;
+            // state.numero_cedula = action.payload.numero_cedula;
+            // state.password = action.payload.password;
+            // state.username = action.payload.username
+        },
+
+        fetchUsersStudentSuccess(state, action: PayloadAction<UserEntity[]>) {
             return {
                 ...state,
                 loading: false,
@@ -32,3 +43,19 @@ export const studentSlice = createSlice({
         },
     }
 })
+
+export const GetUsers = (paralelo:string): AppThunk => {
+    return async (dispatch) => {
+        try {
+            const response = await getUsersParalelos(paralelo);
+            dispatch(fetchUsersStudentSuccess(response))
+        } catch (error) {
+            dispatch(fetchUsersStudentError(error as Error))
+        }
+    }
+}
+
+
+export const { addUser, fetchUsersStudentSuccess, fetchUsersStudentError } = studentSlice.actions;
+export const selectSttep = (state: RootState) => state.users
+export default studentSlice.reducer

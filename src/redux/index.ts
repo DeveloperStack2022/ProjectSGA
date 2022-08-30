@@ -6,6 +6,7 @@ import UserStudent from '../features/usuarios'
 import UsersDocentes from '../features/Docentes'
 import Paralelos from '../features/Paralelo'
 import NotasAdmin from '../features/notasAdmin'
+import Students from '../features/students'
 export const store = configureStore({
     reducer: {
         // cliente:
@@ -15,7 +16,8 @@ export const store = configureStore({
         userStudent:UserStudent,
         usersDocentes: UsersDocentes,
         paralelos: Paralelos,
-        notasAdmin:NotasAdmin
+        notasAdmin:NotasAdmin,
+        students: Students
         // equipo: equipoSlice,
         // partesEquipo: PartesEquipo
     },
